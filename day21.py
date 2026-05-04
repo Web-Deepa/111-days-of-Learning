@@ -51,7 +51,7 @@ data={
 df=pd.DataFrame(data)
 x=df[['area','bedrooms','age']]
 y=df['price']
-x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=42)
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.4,random_state=42)
 model=LinearRegression()
 model.fit(x_train,y_train)
 y_pred=model.predict(x_test)
@@ -81,7 +81,7 @@ class LinearRegressionScratch:
             y_pred=self.w * x + self.b
             loss = np.mean((y_pred-y)** 2) #MSE
             #gradient
-            dw=(2/n) * np.sum((y_pred-y) * X)
+            dw=(2/n) * np.sum((y_pred-y) * x)
             db=(2/n) * np.sum(y_pred-y)
             #update weight
             self.w -=self.lr * dw 
