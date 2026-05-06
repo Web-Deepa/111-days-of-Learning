@@ -40,7 +40,7 @@ model=LogisticRegression(max_iter=1000)
 model.fit(x_train,y_train)
 y_pred=model.predict(x_test)
 
-report = classification_report(y_test, y_pred, target_names=data.target_names, output_dict=True)
+report = classification_report(y_test, y_pred, target_names=data.target_names)
 print("Classification Report of Breast Cancer:")
 print(report)
 print(f"Overall Accuracy: {accuracy_score(y_test, y_pred):.3f}")
