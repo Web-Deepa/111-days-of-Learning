@@ -1,4 +1,4 @@
-#day 89: Gradio 
+# day 89: Gradio 
 import gradio as gr
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
@@ -6,21 +6,20 @@ from sklearn.datasets import load_iris
 from transformers import pipeline
 
 # 1. Train model
-iris  = load_iris()
-rf    = RandomForestClassifier(n_estimators=100, random_state=42)
+iris = load_iris()
+rf = RandomForestClassifier(n_estimators=100, random_state=42)
 rf.fit(iris.data, iris.target)
 
+# 2. Load sentiment model
 
-# 2.Load sentiment model
 sentiment = pipeline("sentiment-analysis")
-
 
 # 3. Iris Predictor 
 def predict_iris(sepal_length, sepal_width, petal_length, petal_width):
     features = np.array([[sepal_length, sepal_width, petal_length, petal_width]])
-    pred     = rf.predict(features)[0]
-    probs    = rf.predict_proba(features)[0]
-    label    = iris.target_names[pred]
+    pred = rf.predict(features)[0]
+    probs = rf.predict_proba(features)[0]
+    label = iris.target_names[pred]
   
     return {name: float(p) for name, p in zip(iris.target_names, probs)}, f"🌸 {label.upper()}"
 
@@ -40,13 +39,12 @@ iris_interface = gr.Interface(
     description="Adjust sliders to predict Iris species"
 )
 
-
 # 4. Sentiment Analyzer 
 def analyze_sentiment(text):
     if not text.strip():
         return "Please enter some text"
     result = sentiment(text)[0]
-    emoji  = "😊" if result['label'] == 'POSITIVE' else "😢"
+    emoji = "😊" if result['label'] == 'POSITIVE' else "😢"
     return f"{emoji} {result['label']} (confidence: {result['score']:.3f})"
 
 sentiment_interface = gr.Interface(
@@ -61,15 +59,13 @@ sentiment_interface = gr.Interface(
     ]
 )
 
-
-
-
 # 5. Combine into tabbed interface 
+
 app = gr.TabbedInterface(
-    [iris_interface, sentiment_interface],
-    ["🌸 Iris", "💬 Sentiment", "🏥 Cancer Check"],
+    interface_list=[iris_interface, sentiment_interface],
+    tab_names=["🌸 Iris", "💬 Sentiment"],
     title="ML Dashboard — Day 89"
 )
 
-
-app.launch(share=False)  
+if __name__ == "__main__":
+    app.launch(share=False)
