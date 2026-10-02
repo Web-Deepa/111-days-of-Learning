@@ -56,7 +56,7 @@ Transfer learning, RoBERTa, LoRA, RAG (Retrieval-Augmented Generation), LangChai
 
 ## Author
 
-**Deepa** — Computer Engineering student, self-driven ML learner.
+**Deepa Paneru** — Computer Engineering student, self-driven ML learner.
 
 ---
 *A living log of consistent, daily learning — not perfection, but progress.*
